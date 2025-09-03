@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ThePetSwap — Swap care, not cash (Major US cities)</title>
+  <meta name="description" content="ID-verified pet parents swap sitting & walks using points, not cash. Optional insurance. First 1,000 waitlisters get 100 points.">
+  <meta property="og:title" content="ThePetSwap — Community pet care">
+  <meta property="og:description" content="Swap time, not dollars. Verified neighbors, optional insurance, points that work like credit.">
+  <meta property="og:image:alt" content="Neighbors trading pet care with their dogs, ThePetSwap logo.">
+  <style>
+    :root {
+      --bg: #f5fbf7;
+      --brand: #0b6a53;
+      --brand-dark: #084f3f;
+      --accent: #ffe38a;
+      --ink: #0e1b16;
+      --muted: #5a6b63;
+      --card: #ffffff;
+      --shadow: 0 6px 20px rgba(0,0,0,.06);
+      --radius: 14px;
+      --radius-sm: 10px;
+      --maxw: 1080px;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji"; color: var(--ink); background: var(--bg);}
+    a { color: var(--brand); text-decoration: none; }
+    .container { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+    .btn { display: inline-block; padding: 14px 18px; border-radius: 12px; font-weight: 600; background: var(--brand); color: #fff; box-shadow: var(--shadow);}
+    .btn.secondary { background: #eaf5f0; color: var(--brand); }
+    .btn:hover { filter: brightness(0.98); }
+    .badge { display: inline-block; padding: 6px 10px; border-radius: 999px; background: var(--accent); font-weight: 700; }
+    .announcement { background: var(--brand); color: #fff; }
+    .announcement .wrap { display:flex; align-items:center; justify-content:center; gap: 18px; padding:10px 16px; }
+
+    header.hero { padding: 36px 0 18px; }
+    .logo {
+      font-size: 20px; font-weight: 800; letter-spacing:.2px; color: var(--brand-dark);
+    }
+    .hero-wrap { display:grid; gap: 28px; align-items:center; }
+    .eyebrow { color: var(--muted); font-weight: 700; letter-spacing:.04em; text-transform:uppercase; font-size: 12px; }
+    h1 { font-size: clamp(32px, 5vw, 54px); line-height: 1.05; margin: 8px 0; }
+    .subhead { font-size: clamp(16px, 2.4vw, 20px); color: var(--muted); max-width: 55ch; }
+    .cta-row { display:flex; gap:12px; flex-wrap:wrap; margin-top: 18px; }
+    .trust-row { display:flex; flex-wrap:wrap; gap:14px 18px; margin-top:20px; color: var(--muted); }
+    .trust-row .pill { background:#ecf5f1; padding:8px 12px; border-radius:999px; font-weight:600; font-size:14px; }
+
+    .hero-media { width:100%; border-radius: var(--radius); box-shadow: var(--shadow); background:#fff; overflow:hidden; }
+    .hero-media img { width:100%; height:auto; display:block; }
+
+    .strip { background:#fff; border-top:1px solid #e8efe9; border-bottom:1px solid #e8efe9; }
+    .strip .container { padding:14px 20px; font-weight:600; text-align:center; color: var(--brand-dark);}
+
+    section { padding: 48px 0; }
+    h2 { font-size: clamp(24px, 4vw, 36px); margin: 0 0 14px; }
+    .grid-2 { display:grid; gap:22px; }
+    .grid-4 { display:grid; gap:18px; }
+    .card { background: var(--card); border-radius: var(--radius); padding:20px; box-shadow: var(--shadow);}
+    .muted { color: var(--muted);}
+    .list {
+      display:grid; gap:10px; list-style:none; padding:0; margin:0;
+    }
+    .list li::before { content:"• "; color: var(--brand); font-weight:900; }
+
+    /* Form */
+    form { display:grid; gap:14px; max-width: 560px; }
+    input, select { width:100%; padding:14px 12px; border-radius: 12px; border:1px solid #d8e6df; background:#fff; }
+    label { font-weight:600; font-size:14px; }
+    small.tos { color: var(--muted); display:block; margin-top:6px;}
+    .check { display:flex; gap:10px; align-items:flex-start; }
+
+    /* Steps */
+    .steps { display:grid; gap:14px; }
+    .step { display:flex; gap:16px; align-items:flex-start; background: #fff; border-radius: var(--radius); padding:16px; box-shadow: var(--shadow);}
+    .step .num { width:32px; height:32px; border-radius:999px; background: var(--brand); color:#fff; display:grid; place-items:center; font-weight:800; }
+
+    /* FAQ */
+    details { background:#fff; border-radius: var(--radius-sm); padding:14px 16px; box-shadow: var(--shadow);}
+    details + details { margin-top:10px; }
+    summary { cursor:pointer; font-weight:700; }
+
+    /* Final CTA */
+    .cta-final { text-align:center; background:#fff; border-radius: var(--radius); padding:28px; box-shadow: var(--shadow);}
+
+    footer { padding: 30px 0 60px; color: var(--muted);}
+    footer a { color: var(--brand-dark);}
+
+    /* Layout breakpoints */
+    @media (min-width: 900px) {
+      .hero-wrap { grid-template-columns: 1.1fr 0.9fr; }
+      .grid-2 { grid-template-columns: 1fr 1fr; }
+      .grid-4 { grid-template-columns: repeat(4, 1fr); }
+      .steps { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <div class="announcement">
+    <div class="container wrap">
+      <div>🎉 Early birds: First 1,000 on the waitlist get 100 points.</div>
+      <a class="btn secondary" href="#waitlist">Join now</a>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="container hero-wrap">
+      <div class="hero-copy">
+        <div class="logo">ThePetSwap</div>
+        <div class="eyebrow">Community pet care</div>
+        <h1>Swap care, not cash</h1>
+        <p class="subhead">Pet parents in <strong>major US cities</strong> trade sitting and walks with verified neighbors. Earn points when you help, spend them when you need a hand.</p>
+        <div class="badge">⭐ First 1,000 on the waitlist get 100 points</div>
+        <div class="cta-row">
+          <a class="btn" href="#waitlist">Join the waitlist</a>
+          <a class="btn secondary" href="#how-it-works">How it works</a>
+        </div>
+        <div class="trust-row">
+          <div class="pill">ID-verified members</div>
+          <div class="pill">Optional insurance per swap</div>
+          <div class="pill">Dogs & cats</div>
+          <div class="pill">1,000+ members on Nextdoor</div>
+        </div>
+      </div>
+      <div class="hero-media">
+        <img src='petswap-hero.png' alt='Two neighbors meeting with their dogs for a PetSwap hand-off'>
+      </div>
+    </div>
+  </header>
+
+  <!-- Social Proof Strip -->
+  <div class="strip">
+    <div class="container">Trusted by 1,000+ neighbors on Nextdoor — now growing across major US cities.</div>
+  </div>
+
+  <!-- Waitlist Form -->
+  <section id="waitlist">
+    <div class="container grid-2">
+      <div>
+        <h2>Get early access</h2>
+        <p class="muted"><strong>Early-bird bonus:</strong> The first 1,000 people on the waitlist get <strong>100 points</strong> at launch.</p>
+        <form onsubmit="event.preventDefault(); document.getElementById('success').style.display='block'; this.reset();">
+          <div>
+            <label for="name">Full name</label>
+            <input id="name" name="name" placeholder="Julia I." required>
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input id="email" type="email" name="email" placeholder="you@email.com" required>
+          </div>
+          <div style="display:grid; gap:14px; grid-template-columns: 1fr 120px;">
+            <div>
+              <label for="city">City</label>
+              <input id="city" name="city" placeholder="Miami" required>
+            </div>
+            <div>
+              <label for="state">State</label>
+              <input id="state" name="state" placeholder="FL" required>
+            </div>
+          </div>
+          <div>
+            <label for="pettype">Pet type</label>
+            <select id="pettype" name="pettype" required>
+              <option value="" disabled selected>Choose one</option>
+              <option>Dog</option>
+              <option>Cat</option>
+              <option>Both</option>
+            </select>
+          </div>
+          <div>
+            <label for="ref">How did you hear about us? (optional)</label>
+            <input id="ref" name="ref" placeholder="Nextdoor, friend, IG…">
+          </div>
+          <div class="check">
+            <input id="agree" type="checkbox" required>
+            <label for="agree">I agree to the community rules and ID verification.</label>
+          </div>
+          <button class="btn" type="submit">Join the waitlist</button>
+          <small class="tos">Offer limited to first 1,000 valid signups. Points credited at launch after ID verification. One per person. No cash value.</small>
+          <p id="success" class="muted" style="display:none; margin-top:8px;">You’re on the list! We’ll email you when your city goes live.</p>
+        </form>
+      </div>
+      <div class="card">
+        <h2>Why PetSwap?</h2>
+        <div class="grid-2">
+          <div class="card" style="box-shadow:none; background:#f8fbf9;">
+            <strong>Save big vs. boarding</strong>
+            <p class="muted">Swap time, not dollars. Use points instead of cash.</p>
+          </div>
+          <div class="card" style="box-shadow:none; background:#f8fbf9;">
+            <strong>Real neighbors, real trust</strong>
+            <p class="muted">Every member completes ID verification.</p>
+          </div>
+          <div class="card" style="box-shadow:none; background:#f8fbf9;">
+            <strong>Flexible points system</strong>
+            <p class="muted">Earn points for hosting or walks; spend them when you need care.</p>
+          </div>
+          <div class="card" style="box-shadow:none; background:#f8fbf9;">
+            <strong>Peace of mind</strong>
+            <p class="muted">Optional insurance per swap, plus meet-and-greet before first sit.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section id="how-it-works">
+    <div class="container">
+      <h2>How it works</h2>
+      <div class="steps">
+        <div class="step"><div class="num">1</div><div><strong>Create your profile</strong><div class="muted">Quick signup + ID check.</div></div></div>
+        <div class="step"><div class="num">2</div><div><strong>Add your pets</strong><div class="muted">Routines, notes, meds, quirks.</div></div></div>
+        <div class="step"><div class="num">3</div><div><strong>Earn points</strong><div class="muted">Host a pet or do walks.</div></div></div>
+        <div class="step"><div class="num">4</div><div><strong>Spend points</strong><div class="muted">Book care when you travel or need a break.</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Community -->
+  <section>
+    <div class="container grid-2">
+      <div class="card">
+        <h2>Built by neighbors</h2>
+        <p>We already run an active <strong>Nextdoor group with 1,000+ members</strong>—swaps, walks, and meet-ups happen every week. Join the waitlist to get matched in your city.</p>
+        <p><a class="btn secondary" href="YOUR_NEXTDOOR_URL" target="_blank" rel="noopener">See the group</a></p>
+      </div>
+      <div class="card">
+        <h2>Why we started this</h2>
+        <p>On a Hawaii trip, a neighbor watched our French Bulldog, and later we watched their dog in return. It felt fair, friendly, and way cheaper than a pet hotel. That’s ThePetSwap—community over fees.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Safety & Trust -->
+  <section>
+    <div class="container">
+      <h2>Safety & trust</h2>
+      <ul class="list">
+        <li>ID verification required for all members</li>
+        <li>Optional insurance per swap</li>
+        <li>Meet-and-greet before your first sit</li>
+        <li>Simple house &amp; pet checklists</li>
+        <li>Ratings and reviews after each swap</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section>
+    <div class="container">
+      <h2>FAQ</h2>
+      <details>
+        <summary>Do you already have a community?</summary>
+        <div class="muted">Yes—our Nextdoor group has <strong>1,000+ members</strong> and counting.</div>
+      </details>
+      <details>
+        <summary>Where do you launch?</summary>
+        <div class="muted">We’re rolling out across <strong>major US cities</strong>. Join the waitlist with your city and we’ll match you locally as groups go live.</div>
+      </details>
+      <details>
+        <summary>Do I really get 100 points?</summary>
+        <div class="muted">Yes—if you’re among the first 1,000 on the waitlist. Points are credited at launch after ID verification. One bonus per person.</div>
+      </details>
+      <details>
+        <summary>How do points work?</summary>
+        <div class="muted">Earn points by hosting or doing walks. Spend points when you need care. Track your balance in your profile.</div>
+      </details>
+      <details>
+        <summary>Is insurance required?</summary>
+        <div class="muted">It’s optional—add it per swap for extra peace of mind.</div>
+      </details>
+      <details>
+        <summary>Is it only dogs?</summary>
+        <div class="muted">Dogs and cats to start.</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section>
+    <div class="container cta-final">
+      <h2>Ready to swap care, not cash?</h2>
+      <p class="muted">Join the waitlist and grab your 100-point bonus.</p>
+      <p><a class="btn" href="#waitlist">Join the waitlist</a></p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+      <div>© ThePetSwap. All rights reserved.</div>
+      <nav style="display:flex;gap:14px;">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Contact</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>
