@@ -40,9 +40,9 @@ export default function WaitListForm() {
 
       <div>
         <label htmlFor="pettype" className="font-semibold text-sm">Pet type</label>
-        <select id="pettype" name="pettype" required
+        <select id="pettype" name="pettype" required defaultValue={""}
           className="w-full rounded-lg border border-[#d8e6df] bg-white px-3 py-3">
-          <option value="" disabled selected>Choose one</option>
+          <option value="" disabled>Choose one</option>
           <option>Dog</option>
           <option>Cat</option>
           <option>Both</option>

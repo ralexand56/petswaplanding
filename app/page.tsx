@@ -51,7 +51,7 @@ export default function Page() {
 
           <div className="bg-white rounded-xl shadow-card overflow-hidden">
             <Image
-              src="/petswap-hero.png"
+              src="/images/petswap-hero.jpeg"
               alt="Two neighbors meeting with their dogs for a PetSwap hand-off"
               width={1200}
               height={900}
