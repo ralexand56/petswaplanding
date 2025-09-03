@@ -1,5 +1,5 @@
 import Image from "next/image";
-import WaitListForm from "./components/WaitListForm"
+import WaitListForm from "./components/WaitListForm1"
 
 export default function Page() {
   return (
