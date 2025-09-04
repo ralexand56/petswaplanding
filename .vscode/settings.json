@@ -1,6 +1,9 @@
 {
     "cSpell.words": [
+        "BIGSERIAL",
         "petswap",
+        "pettype",
+        "TIMESTAMPTZ",
         "waitlist"
     ]
 }
