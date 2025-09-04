@@ -1,45 +1,34 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Tailwind v4+ single import */
+@import "tailwindcss";
 
-/* Global base styles */
-@layer base {
-  html, body {
-    @apply bg-bg text-ink font-sans;
-  }
+/* Theme tokens that power class names like bg-bg, text-ink, shadow-soft, max-w-content, etc. */
+@theme {
+  /* Colors */
+  --color-bg: #f5fbf7;
+  --color-brand: #0b6a53;
+  --color-brand-dark: #084f3f;
+  --color-accent: #ffe38a;
+  --color-ink: #0e1b16;
+  --color-muted: #5a6b63;
+  --color-card: #ffffff;
+
+  /* Shadows */
+  --shadow-soft: 0 6px 20px rgba(0, 0, 0, 0.06);
+
+  /* Radii (hooks into rounded-* utilities) */
+  --radius-xl: 14px;
+  --radius-lg: 10px;
+
+  /* Sizes */
+  --max-w-content: 1080px;
 }
 
-/* Reusable components */
-@layer components {
-  .container {
-    @apply max-w-site mx-auto px-5;
-  }
+/* (Optional) tiny global tweaks */
+html,
+body {
+  min-height: 100%;
+}
 
-  .btn {
-    @apply inline-block rounded-lg px-4 py-3 font-semibold text-white bg-brand shadow-card hover:brightness-95 transition;
-  }
-
-  .btn-secondary {
-    @apply bg-[#eaf5f0] text-brand;
-  }
-
-  .pill {
-    @apply bg-[#ecf5f1] px-3 py-2 rounded-full font-semibold text-sm text-muted;
-  }
-
-  .card {
-    @apply bg-card rounded-xl p-5 shadow-card;
-  }
-
-  .badge {
-    @apply inline-block rounded-full px-3 py-1 font-bold bg-accent;
-  }
-
-  .eyebrow {
-    @apply uppercase tracking-wider text-xs font-bold text-muted;
-  }
-
-  .subhead {
-    @apply text-muted max-w-[55ch];
-  }
+html {
+  scroll-behavior: smooth;
 }
