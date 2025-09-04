@@ -9,7 +9,8 @@ type Row = {
   email: string;
   city: string;
   state: string;
-  petType: string;
+  zip: string;
+  pettype: string;
   referral: string | null;
   userAgent: string | null;
   created: string; // will come as string
@@ -38,11 +39,10 @@ function buildOrderBy(sort?: string) {
   }
 }
 
-export default async function AdminWaitlistPage({
-  searchParams,
-}: {
-  searchParams: SearchParams;
+export default async function AdminWaitlistPage(props: {
+  searchParams: Promise<SearchParams>;
 }) {
+  const searchParams = await props.searchParams;
   const page = Math.max(1, Number(searchParams.page ?? 1) || 1);
   const q = (searchParams.q ?? "").trim();
   const pettype = searchParams.pettype ?? "";
@@ -75,24 +75,28 @@ export default async function AdminWaitlistPage({
   const orderSQL = buildOrderBy(sort);
 
   const offset = (page - 1) * PAGE_SIZE;
-  console.log({ whereSQL });
 
-  // total count
-  const countRes = await sql<{ count: string }>`
+  const countQuery = `
     SELECT COUNT(*)::text as count FROM waitlist ${whereSQL}
   `;
 
+  // total count
+  const countRes = await sql.query(countQuery, params);
+
+  // -- ${whereSQL}
   const total = Number(countRes.rows[0]?.count || 0);
   const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
 
-  // page rows
-  const rowsRes = await sql<Row>`
-    SELECT id, name, email, city, state, "pet-type" as petType, referral, "user-agent" as userAgent, created
-    FROM waitlist
+  const query = `
+    SELECT id, name, email, city, state, "pet-type" as pettype, referral, "user-agent" as userAgent, created
+    FROM waitlist 
     ${whereSQL}
     ${orderSQL}
     LIMIT ${PAGE_SIZE} OFFSET ${offset}
   `;
+
+  // page rows
+  const rowsRes = await sql.query(query, params);
 
   const rows = rowsRes.rows;
 
@@ -203,7 +207,8 @@ export default async function AdminWaitlistPage({
                 </td>
                 <td className="px-4 py-3">{r.city}</td>
                 <td className="px-4 py-3">{r.state}</td>
-                <td className="px-4 py-3">{r.petType}</td>
+                <td className="px-4 py-3">{r.zip}</td>
+                <td className="px-4 py-3">{r.pettype}</td>
                 <td className="px-4 py-3">{r.referral ?? "—"}</td>
               </tr>
             ))}
