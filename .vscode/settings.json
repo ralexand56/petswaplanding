@@ -3,6 +3,7 @@
         "BIGSERIAL",
         "petswap",
         "pettype",
+        "signups",
         "TIMESTAMPTZ",
         "waitlist"
     ]

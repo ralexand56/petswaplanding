@@ -3,81 +3,92 @@
 import { sql } from "@vercel/postgres";
 import { z } from "zod";
 
-// Schema validation (server-side, tamper-proof)
+/** A single, consistent state shape for useFormState */
+export type ActionState = {
+  ok: boolean;
+  message?: string; // present on error or success (optional)
+  fieldErrors?: Record<string, string>; // keyed by field name
+};
+
 const Waitlist = z.object({
-  name: z.string().min(2),
-  email: z.email(),
-  city: z.string().min(2),
-  state: z.string().min(2).max(2), // "FL" style
-  zip: z.string().max(10),
-  petType: z.enum(["Dog", "Cat", "Other"]),
+  name: z.string().min(2, "Please enter your full name."),
+  email: z.email("Please enter a valid email."),
+  city: z.string().optional().nullable(),
+  state: z.string().max(2, "Use 2-letter state code."),
+  zip: z.string().optional().nullable(),
+  petType: z.enum(["Dog", "Cat", "Other"], { message: "Choose a pet type." }),
   referral: z.string().optional().nullable(),
-  agree: z.literal("on"),           // checkbox returns "on" when checked
-  hp: z.string().max(0).optional(), // honeypot should be empty
+  hp: z.string().max(0).optional(), // honeypot (must be empty)
 });
 
-export type WaitlistResult =
-  | { ok: true }
-  | { ok: false; message: string; fieldErrors?: Record<string, string> };
+function toFieldErrors(err: z.ZodError): Record<string, string> {
+  const out: Record<string, string> = {};
+  const flat = err.flatten().fieldErrors as Record<string, string[]>;
+  for (const [key, msgs] of Object.entries(flat)) {
+    if (msgs?.[0]) out[key] = msgs[0]!;
+  }
+  return out;
+}
 
-export async function joinWaitlist(_: unknown, formData: FormData): Promise<WaitlistResult> {
-  // read form fields
+export async function joinWaitlist(
+  _: ActionState,
+  formData: FormData
+): Promise<ActionState> {
+   // Normalize inputs
+  const rawEmail = String(formData.get("email") || "");
+  const normalizedEmail = rawEmail.trim().toLowerCase(); // ← key line
+
+  // read form
   const data = {
     name: formData.get("name"),
-    email: formData.get("email"),
+    email: normalizedEmail,
     city: formData.get("city"),
     state: String(formData.get("state") || "").toUpperCase(),
-    zip: formData.get("zip"),
     petType: formData.get("petType"),
-    referral: formData.get("referral") || null,
-    agree: formData.get("agree"),
-    hp: formData.get("website") || "", // honeypot
+    ref: formData.get("ref") || null,
+    hp: formData.get("website") || "",
   };
 
   const parsed = Waitlist.safeParse(data);
+
   if (!parsed.success) {
-    const fieldErrors: Record<string, string> = {};
-    for (const [k, v] of Object.entries(parsed.error.flatten().fieldErrors)) {
-      if (v && v[0]) fieldErrors[k] = v[0];
-    }
-    return { ok: false, message: "Please fix the errors and try again.", fieldErrors };
+    return {
+      ok: false,
+      message: "Please fix the highlighted fields and try again.",
+      fieldErrors: toFieldErrors(parsed.error),
+    };
   }
+  // bot: silently accept
+  if (parsed.data.hp) return { ok: true, message: "Thanks! (bot check)" };
 
-  // Basic bot filter
-  if (parsed.data.hp && parsed.data.hp.length > 0) {
-    return { ok: true }; // silently succeed for bots
-  }
+  // ensure table
+  // await sql`
+  //   CREATE TABLE IF NOT EXISTS waitlist (
+  //     id BIGSERIAL PRIMARY KEY,
+  //     name TEXT NOT NULL,
+  //     email TEXT NOT NULL UNIQUE,
+  //     city TEXT NOT NULL,
+  //     state TEXT NOT NULL,
+  //     petType TEXT NOT NULL,
+  //     ref TEXT,
+  //     agreed BOOLEAN NOT NULL DEFAULT FALSE,
+  //     user_agent TEXT,
+  //     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+  //   )
+  // `;
 
-  // Create table if needed (safe to run each submit)
-//   await sql`
-//     CREATE TABLE IF NOT EXISTS waitlist (
-//       id BIGSERIAL PRIMARY KEY,
-//       name TEXT NOT NULL,
-//       email TEXT NOT NULL,
-//       city TEXT NOT NULL,
-//       state TEXT NOT NULL,
-//       pettype TEXT NOT NULL,
-//       ref TEXT,
-//       agreed BOOLEAN NOT NULL DEFAULT FALSE,
-//       user_agent TEXT,
-//       created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-//       UNIQUE (email)
-//     );
-//   `;
-
-  // Insert row (parameterized)
   try {
     const userAgent = (formData.get("userAgent") as string) || null;
-    await sql`
+    const res = await sql`
       INSERT INTO waitlist (
         name, 
         email, 
         city, 
         state, 
         zip, 
-        'pet-type', 
+        "pet-type", 
         referral, 
-        user_agent
+        "user-agent"
         )
       VALUES (
         ${parsed.data.name}, 
@@ -88,11 +99,37 @@ export async function joinWaitlist(_: unknown, formData: FormData): Promise<Wait
         ${parsed.data.petType}, 
         ${parsed.data.referral}, 
         ${userAgent})
-      ON CONFLICT (email) DO NOTHING;
+      ON CONFLICT (email) DO NOTHING
+      RETURNING id
     `;
-    return { ok: true };
-  } catch {
-    // Optionally check code for duplicate key, etc.
-    return { ok: false, message: "Something went wrong saving your signup. Please try again." };
+
+    // If no row was inserted, it's almost certainly a duplicate email
+    if (res.rowCount === 0) {
+      return {
+        ok: false,
+        message: "That email is already on the waitlist.",
+        fieldErrors: { email: "This email is already registered." },
+      };
+    }
+
+    return {
+      ok: true,
+      message: "You’re on the list! We’ll email you when your city goes live.",
+    };
+  } catch (e: unknown) {
+    // Extra safety for unique-violation race conditions
+    const err = e as { code?: string; message?: string };
+    if (err?.code === "23505") {
+      return {
+        ok: false,
+        message: "That email is already on the waitlist.",
+        fieldErrors: { email: "This email is already registered." },
+      };
+    }
+
+    return {
+      ok: false,
+      message: "We couldn’t save your signup right now. Please try again.",
+    };
   }
 }
