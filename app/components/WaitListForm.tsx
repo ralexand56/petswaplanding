@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { useFormStatus } from "react-dom";
 import { joinWaitlist, type ActionState } from "@/actions";
 import { useActionState } from "react";
@@ -29,12 +30,14 @@ export default function WaitlistForm() {
     initialState
   );
 
+  const [selectedPetType, setSelectedPetType] = React.useState("Choose one");
+
   return (
     <section id="waitlist" className="py-12">
       <div className="mx-auto grid max-w-content gap-8 px-4 md:grid-cols-2">
         {/* Left: form */}
         <div>
-          <h2 className="text-3xl font-bold">Get early access</h2>
+          <h2 className="text-3xl font-bold">Join PetSwap Early</h2>
           <p className="mt-2 text-muted">
             <strong>Early-bird bonus:</strong> The first 1,000 people on the
             waitlist get <strong>100 points</strong> at launch.
@@ -154,25 +157,47 @@ export default function WaitlistForm() {
               <label htmlFor="petType" className="text-sm font-semibold">
                 Pet type
               </label>
-              <select
-                id="petType"
-                name="petType"
-                required
-                defaultValue=""
-                className="mt-1 w-full rounded-xl border border-gray-300 bg-white px-3 py-3"
-              >
-                <option value="" disabled>
-                  Choose one
-                </option>
-                <option>Dog</option>
-                <option>Cat</option>
-                <option>Other</option>
-              </select>
-              {state.fieldErrors?.pettype && (
-                <p className="mt-1 text-sm text-red-600">
-                  {state.fieldErrors.pettype}
-                </p>
-              )}
+              <div className="flex gap-1 align-center">
+                <div className="flex-1">
+                  <select
+                    id="petType"
+                    name="petType"
+                    required
+                    defaultValue=""
+                    value={selectedPetType}
+                    onChange={(e) => setSelectedPetType(e.target.value)}
+                    className="mt-1 w-full rounded-xl border border-gray-300 bg-white px-3 py-3"
+                  >
+                    <option value="Choose one" disabled>
+                      Choose one
+                    </option>
+                    <option value="Dog">Dog</option>
+                    <option value="Cat">Cat</option>
+                    <option value="Other">Other</option>
+                  </select>
+                  {state.fieldErrors?.pettype && (
+                    <p className="mt-1 text-sm text-red-600">
+                      {state.fieldErrors.pettype}
+                    </p>
+                  )}
+                </div>
+                {selectedPetType === "Other" && (
+                  <div className="flex-1">
+                    <input
+                      id="other"
+                      name="other"
+                      placeholder="enter other pet type"
+                      required
+                      className="mt-1 w-full rounded-xl border border-gray-300 bg-white px-3 py-3"
+                    />
+                    {state.fieldErrors?.other && (
+                      <p className="mt-1 text-sm text-red-600">
+                        {state.fieldErrors.other}
+                      </p>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
 
             <div>

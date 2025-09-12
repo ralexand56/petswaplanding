@@ -17,8 +17,17 @@ const Waitlist = z.object({
   state: z.string().max(2, "Use 2-letter state code."),
   zip: z.string().optional().nullable(),
   petType: z.enum(["Dog", "Cat", "Other"], { message: "Choose a pet type." }),
+  other: z.string().max(100).optional().nullable(),
   referral: z.string().optional().nullable(),
-  hp: z.string().max(0).optional(), // honeypot (must be empty)
+  hp: z.string().max(0).optional(),
+}).superRefine((data, ctx) => {
+  if (data.petType === "Other" && !data.other) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: ["other"],
+      message: "Please specify your pet type.",
+    });
+  }
 });
 
 function toFieldErrors(err: z.ZodError): Record<string, string> {
@@ -45,6 +54,7 @@ export async function joinWaitlist(
     city: formData.get("city"),
     state: String(formData.get("state") || "").toUpperCase(),
     petType: formData.get("petType"),
+    other: formData.get("other"),
     ref: formData.get("ref") || null,
     hp: formData.get("website") || "",
   };
@@ -96,7 +106,7 @@ export async function joinWaitlist(
         ${parsed.data.city},  
         ${parsed.data.state},
         ${parsed.data.zip},
-        ${parsed.data.petType}, 
+        ${parsed.data.petType === "Other" ? parsed.data.other : parsed.data.petType}, 
         ${parsed.data.referral}, 
         ${userAgent})
       ON CONFLICT (email) DO NOTHING

@@ -20,8 +20,8 @@ export default function HeroFull() {
             Swap care, not cash
           </h1>
           <p className="mt-4 text-lg text-white/90">
-            Pet parents in <strong>major US cities</strong> trade sitting and walks
-            with verified neighbors.
+            Joining is free. You’ll get starter and referral points, and if you
+            run low, you can earn more by helping others or simply buy them.
           </p>
           <div className="mt-6 flex justify-center gap-4">
             <a

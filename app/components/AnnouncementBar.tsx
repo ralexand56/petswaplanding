@@ -7,7 +7,7 @@ export default function AnnouncementBar() {
           href="#waitlist"
           className="inline-block rounded-xl bg-[#eaf5f0] px-4 py-2 font-semibold text-brand shadow-soft hover:brightness-95"
         >
-          Join now
+          Join
         </a>
       </div>
     </div>
