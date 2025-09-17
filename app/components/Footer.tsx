@@ -11,7 +11,7 @@ export default function Footer() {
             Terms
           </a> */}
           <a href="mailto:thepetswap@gmail.com" className="text-brand-dark hover:underline">
-            Contact
+            Contact Us
           </a>
         </nav>
       </div>
