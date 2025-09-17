@@ -8,7 +8,7 @@ export default function Community() {
           <p className="mt-3">
             We already run an active{" "}
             <strong>Nextdoor group with 1,000+ members</strong>. Swaps, walks,
-            and meet-ups happen every week. Join the waitlist to get matched in
+            and meet-ups happen every week. Join the app waitlist to get matched in
             your city.
           </p>
           <p className="mt-4">

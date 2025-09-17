@@ -13,7 +13,7 @@ function SubmitButton() {
       disabled={pending}
       className="rounded-xl bg-brand px-5 py-3 font-semibold text-white shadow-soft hover:brightness-95 disabled:opacity-60"
     >
-      {pending ? "Joining…" : "Join the waitlist"}
+      {pending ? "Joining…" : "Join the app waitlist"}
     </button>
   );
 }
@@ -39,7 +39,7 @@ export default function WaitlistForm() {
         <div>
           <h2 className="text-3xl font-bold">Join PetSwap Early</h2>
           <p className="mt-2 text-muted">
-            <strong>Early-bird bonus:</strong> The first 1,000 people on the
+            <strong>Early-bird bonus:</strong> The first 1,000 people on the app
             waitlist get <strong>500 points</strong> at launch.
           </p>
 

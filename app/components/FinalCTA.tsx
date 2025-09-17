@@ -12,7 +12,7 @@ export default function FinalCTA() {
               href="#waitlist"
               className="rounded-xl bg-brand px-6 py-3 font-semibold text-white shadow-soft hover:brightness-95"
             >
-              Join the waitlist
+              Join the app waitlist
             </a>
           </p>
         </div>

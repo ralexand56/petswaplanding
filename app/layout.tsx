@@ -10,7 +10,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "ThePetSwap — Swap care, not cash (Major US cities)",
   description:
-    "ID-verified pet parents swap sitting & walks using points, not cash. Optional insurance. First 1,000 waitlisters get 500 points.",
+    "ID-verified pet parents swap sitting & walks using points, not cash. Optional insurance. First 1,000 app waitlisters get 500 points.",
   openGraph: {
     title: "ThePetSwap — Community pet care",
     description:
