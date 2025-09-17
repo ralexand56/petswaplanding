@@ -5,7 +5,7 @@ export default function FinalCTA() {
         <div className="rounded-xl bg-white p-8 text-center shadow-soft">
           <h2 className="text-3xl font-bold">Ready to swap care, not cash?</h2>
           <p className="mt-2 text-muted">
-            Join the waitlist and grab your 100-point bonus.
+            Join the waitlist and grab your 500-point bonus.
           </p>
           <p className="mt-5">
             <a

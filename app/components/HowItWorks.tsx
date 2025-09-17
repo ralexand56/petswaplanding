@@ -1,9 +1,9 @@
 export default function HowItWorks() {
   const steps = [
-    { num: 1, title: "Create your profile", desc: "Quick signup + ID check." },
-    { num: 2, title: "Add your pets", desc: "Routines, notes, meds, quirks." },
-    { num: 3, title: "Earn points", desc: "Host a pet or do walks." },
-    { num: 4, title: "Spend points", desc: "Book care when you travel or need a break." },
+    { num: 1, title: "Create your profile", desc: "Sign up in minutes, verify your ID for safety, and build trust from the start." },
+    { num: 2, title: "Add your pets", desc: "Share vaccination records, routines, notes, and quirks to keep everyone safe and comfortable." },
+    { num: 3, title: "Earn points", desc: "Host a pet or help with walks. Every good care earns you points." },
+    { num: 4, title: "Spend points", desc: "Use your points to book trusted pet care whenever you travel or need a break." },
   ];
 
   return (

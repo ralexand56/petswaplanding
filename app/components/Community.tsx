@@ -7,12 +7,13 @@ export default function Community() {
           <h2 className="text-3xl font-bold">Built by neighbors</h2>
           <p className="mt-3">
             We already run an active{" "}
-            <strong>Nextdoor group with 1,000+ members</strong>—swaps, walks, and meet-ups happen
-            every week. Join the waitlist to get matched in your city.
+            <strong>Nextdoor group with 1,000+ members</strong>. Swaps, walks,
+            and meet-ups happen every week. Join the waitlist to get matched in
+            your city.
           </p>
           <p className="mt-4">
             <a
-              href="YOUR_NEXTDOOR_URL"
+              href="https://nextdoor.com/g/2reim8hzi?share_platform=10&utm_campaign=1758060868551&share_action_id=50997413-d04a-47ed-8938-50b62c7d804f"
               target="_blank"
               rel="noopener noreferrer"
               className="rounded-xl bg-[#eaf5f0] px-5 py-3 font-semibold text-brand shadow-soft hover:brightness-95"
@@ -26,9 +27,13 @@ export default function Community() {
         <div className="rounded-xl bg-card p-6 shadow-soft">
           <h2 className="text-3xl font-bold">Why we started this</h2>
           <p className="mt-3">
-            On a Hawaii trip, a neighbor watched our French Bulldog, and later we watched their dog
-            in return. It felt fair, friendly, and way cheaper than a pet hotel. That’s ThePetSwap—
-            community over fees.
+            I started ThePetSwap because every trip brought the same struggle:
+            who will care for our pet? Boarding was pricey, sitters also costly.
+            Then I realized so many pet owners face the same problem. What if we
+            simply helped each other?
+            That’s how ThePetSwap was born — not just an app, but a community
+            built on trust, kindness, and the love we all share for our furry
+            family.
           </p>
         </div>
       </div>

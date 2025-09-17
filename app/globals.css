@@ -32,3 +32,60 @@ body {
 html {
   scroll-behavior: smooth;
 }
+
+/* === Coming Soon ribbon (Top middle -> Right middle) === */
+:root{
+  --cs-bg: #0b6a53;        /* ribbon color */
+  --cs-fg: #ffffff;        /* text color */
+  --cs-height: 48px;       /* ribbon thickness */
+  --cs-weight: 800;        /* font-weight */
+  --cs-letterspace: .12em; /* spacing for caps */
+  --cs-shadow: 0 4px 12px rgba(0,0,0,.15);
+}
+
+/* The host div can be positioned with Tailwind classes.
+   We keep only the pseudo-element styling here. */
+#coming-soon-ribbon{
+  pointer-events: none;   /* clicks pass through */
+  width:auto;
+  height:auto;
+  opacity: 0.7;
+  z-index: 9999;          /* on top of everything */
+}
+
+/* The ribbon itself */
+#coming-soon-ribbon::before{
+  content: "COMING SOON";
+  position: absolute;
+
+  /* Start exactly at TOP MIDDLE */
+  top: 0;
+  left: 50%;
+  transform-origin: top center;
+  transform: translateX(-50%) rotate(45deg);
+
+  /* Approximate length to reach RIGHT MIDDLE across aspect ratios */
+  width: calc(0.707 * (50vw + 50vh));
+  height: var(--cs-height);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: var(--cs-bg);
+  color: var(--cs-fg);
+  font: var(--cs-weight) 14px/1 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  letter-spacing: var(--cs-letterspace);
+  text-transform: uppercase;
+  box-shadow: var(--cs-shadow);
+
+  /* angled tail on far end */
+  clip-path: polygon(0 0, 100% 0, calc(100% - var(--cs-height)) 100%, 0 100%);
+
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+@media (min-width: 640px){
+  #coming-soon-ribbon::before{ font-size: 16px; }
+}

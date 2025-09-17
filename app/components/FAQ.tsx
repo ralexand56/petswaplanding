@@ -2,14 +2,14 @@ export default function FAQ() {
   const faqs = [
     {
       q: "Do you already have a community?",
-      a: "Yes—our Nextdoor group has 1,000+ members and counting.",
+      a: "Yes, our Nextdoor group has 1,000+ members and counting.",
     },
     {
       q: "Where do you launch?",
       a: "We’re rolling out across major US cities. Join the waitlist with your city and we’ll match you locally as groups go live.",
     },
     {
-      q: "Do I really get 100 points?",
+      q: "Do I really get 500 points?",
       a: "Yes—if you’re among the first 1,000 on the waitlist. Points are credited at launch after ID verification. One bonus per person.",
     },
     {

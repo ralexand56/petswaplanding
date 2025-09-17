@@ -40,7 +40,7 @@ export default function WaitlistForm() {
           <h2 className="text-3xl font-bold">Join PetSwap Early</h2>
           <p className="mt-2 text-muted">
             <strong>Early-bird bonus:</strong> The first 1,000 people on the
-            waitlist get <strong>100 points</strong> at launch.
+            waitlist get <strong>500 points</strong> at launch.
           </p>
 
           <form action={formAction} className="mt-6 grid max-w-lg gap-4">
@@ -157,13 +157,12 @@ export default function WaitlistForm() {
               <label htmlFor="petType" className="text-sm font-semibold">
                 Pet type
               </label>
-              <div className="flex gap-1 align-center">
+              <div className="flex gap-1 items-center">
                 <div className="flex-1">
                   <select
                     id="petType"
                     name="petType"
                     required
-                    defaultValue=""
                     value={selectedPetType}
                     onChange={(e) => setSelectedPetType(e.target.value)}
                     className="mt-1 w-full rounded-xl border border-gray-300 bg-white px-3 py-3"
