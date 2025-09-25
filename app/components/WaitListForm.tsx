@@ -5,12 +5,30 @@ import { useFormStatus } from "react-dom";
 import { joinWaitlist, type ActionState } from "@/actions";
 import { useActionState } from "react";
 
+// Minimal fbqTrack fallback to avoid a missing-module build error.
+// If the Meta Pixel script is present on the page it will call fbq('track', ...),
+// otherwise this is a safe no-op.
+function fbqTrack(event: string, params?: Record<string, unknown>) {
+  if (typeof window === "undefined") return;
+  const anyWin = window as Window & {
+    fbq?: (cmd: string, event: string, params?: Record<string, unknown>) => void;
+  };
+  if (typeof anyWin.fbq === "function") {
+    try {
+      anyWin.fbq("track", event, params);
+    } catch {
+      // ignore errors from third-party script
+    }
+  }
+}
+
 function SubmitButton() {
   const { pending } = useFormStatus();
   return (
     <button
       type="submit"
       disabled={pending}
+      onClick={() => fbqTrack('Lead', { value: 0, currency: 'USD' })}
       className="rounded-xl bg-brand px-5 py-3 font-semibold text-white shadow-soft hover:brightness-95 disabled:opacity-60"
     >
       {pending ? "Joining…" : "Join the app waitlist"}

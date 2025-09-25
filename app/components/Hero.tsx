@@ -4,11 +4,18 @@ export default function HeroFull() {
   return (
     <section className="relative h-screen w-full bg-black">
       <Image
-        src="/images/petswap-hero.jpeg"
+        src="/images/petswap-hero.jpg"
         alt="Two neighbors meeting with their dogs for a PetSwap hand-off"
         fill
         priority
-        className="object-cover opacity-50"
+        className="object-cover hidden md:block opacity-50"
+      />
+      <Image
+        src="/images/petswap-hero-mobile.jpg"
+        alt="Two neighbors meeting with their dogs for a PetSwap hand-off"
+        fill
+        priority
+        className="object-cover md:hidden opacity-50"
       />
 
       {/* Content overlay */}
