@@ -1,15 +1,19 @@
-'use client';
+"use client";
 
-import Script from 'next/script';
-import { useEffect } from 'react';
-import { usePathname, useSearchParams } from 'next/navigation';
+import Script from "next/script";
+import { Suspense, useEffect } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
 
 const PIXEL_ID = process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID!;
 
-// Define fbq function signature
-type FbqMethods = 'init' | 'track' | 'trackCustom';
+// Types (no `any`)
+type FbqMethods = "init" | "track" | "trackCustom";
 type FbqFunction = {
-  (method: FbqMethods, eventOrId: string, params?: Record<string, unknown>): void;
+  (
+    method: FbqMethods,
+    eventOrId: string,
+    params?: Record<string, unknown>
+  ): void;
   queue?: unknown[];
   push?: FbqFunction;
   loaded?: boolean;
@@ -23,17 +27,20 @@ declare global {
   }
 }
 
-export default function MetaPixel() {
+function MetaPixelRouteTracker() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  // Track on route changes
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.fbq) {
-      window.fbq('track', 'PageView');
+    if (typeof window !== "undefined" && window.fbq) {
+      window.fbq("track", "PageView");
     }
   }, [pathname, searchParams]);
 
+  return null;
+}
+
+export default function MetaPixel() {
   if (!PIXEL_ID) return null;
 
   return (
@@ -57,21 +64,25 @@ export default function MetaPixel() {
         <img
           height="1"
           width="1"
-          style={{ display: 'none' }}
+          style={{ display: "none" }}
           src={`https://www.facebook.com/tr?id=${PIXEL_ID}&ev=PageView&noscript=1`}
           alt=""
         />
       </noscript>
+
+      {/* This satisfies the lint rule everywhere, including /404 */}
+      <Suspense fallback={null}>
+        <MetaPixelRouteTracker />
+      </Suspense>
     </>
   );
 }
 
-// Helper for conversions
 export function fbqTrack(
-  event: 'PageView' | 'Lead' | 'Purchase' | 'AddToCart' | string,
+  event: "PageView" | "Lead" | "Purchase" | "AddToCart" | string,
   params?: Record<string, unknown>
 ) {
-  if (typeof window !== 'undefined' && window.fbq) {
-    window.fbq('track', event, params);
+  if (typeof window !== "undefined" && window.fbq) {
+    window.fbq("track", event, params);
   }
 }

@@ -3,19 +3,6 @@ import Link from "next/link";
 
 export const dynamic = "force-dynamic"; // admin pages shouldn't be cached
 
-type Row = {
-  id: string;
-  name: string;
-  email: string;
-  city: string;
-  state: string;
-  zip: string;
-  pettype: string;
-  referral: string | null;
-  userAgent: string | null;
-  created: string; // will come as string
-};
-
 type SearchParams = {
   page?: string;
   q?: string;
