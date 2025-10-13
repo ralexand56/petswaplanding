@@ -75,7 +75,7 @@ export default async function AdminWaitlistPage(props: {
   const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
 
   const query = `
-    SELECT id, name, email, city, state, "pet-type" as pettype, referral, "user-agent" as userAgent, created
+    SELECT id, name, email, city, state, zip, "pet-type" as pettype, referral, "user-agent" as userAgent, created
     FROM waitlist 
     ${whereSQL}
     ${orderSQL}
