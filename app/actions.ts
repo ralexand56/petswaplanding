@@ -53,9 +53,10 @@ export async function joinWaitlist(
     email: normalizedEmail,
     city: formData.get("city"),
     state: String(formData.get("state") || "").toUpperCase(),
+    zip: formData.get("zip"),
     petType: formData.get("petType"),
     other: formData.get("other"),
-    ref: formData.get("ref") || null,
+    referral: formData.get("referral") || null,
     hp: formData.get("website") || "",
   };
 

@@ -218,7 +218,7 @@ export default function WaitlistForm() {
             </div>
 
             <div>
-              <label htmlFor="ref" className="text-sm font-semibold">
+              <label htmlFor="referral" className="text-sm font-semibold">
                 How did you hear about us? (optional)
               </label>
               <input
