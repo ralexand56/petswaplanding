@@ -54,14 +54,15 @@ export const metadata: Metadata = {
     images: ["/images/og-image.png"],
   },
   icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-    apple: "/apple-icon.png",
-    other: [
-      { rel: "icon", url: "/icon0.svg", type: "image/svg+xml" },
-      { rel: "manifest", url: "/manifest.json" },
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon0.svg", type: "image/svg+xml" },
+      { url: "/icon1.png", sizes: "32x32" },
     ],
+    apple: "/apple-icon.png",
+    other: [{ rel: "manifest", url: "/manifest.json" }],
   },
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({
