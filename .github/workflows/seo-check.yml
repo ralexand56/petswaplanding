@@ -1,0 +1,13 @@
+name: SEO check
+on:
+  pull_request:
+    branches: [ main ]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify OG image present
+        run: |
+          test -f public/images/og-image.png || \
+          (echo "Missing public/images/og-image.png" && exit 1)
