@@ -222,7 +222,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(app) }}
         />
-      </head>
+      </head><meta name="facebook-domain-verification" content="itjfp5rgjzyy11j8j3mioevm30gjkj" />
       <body className={`${inter.className} bg-bg text-ink antialiased`}>
         <MetaPixel /> {children}
       </body>
